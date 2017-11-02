@@ -1,0 +1,36 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/i18n/es.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+<script src="/estaticos/sistema/scripts.js"></script>
+
+<script>
+    var mostrar;
+    $(function () {
+        window.setInterval(function () {
+            $.each(aplicaciones, function (k, v) {
+                if ($(v).is(':visible')) {
+                    if (v.contentWindow.document.body.scrollHeight < 250) {
+                        v.style.height = "350px";
+                    } else {
+                        v.style.height = v.contentWindow.document.body.scrollHeight + 'px';
+                    }
+                }
+            });
+        }, 2000);
+        if (!mostrar) {
+            var titulo = getJson('/login/permisos/menu/titulo', {});
+            if (titulo.length > 0) {
+                $("#titulo").text(titulo[0].NOMBRE);
+                $("#titulo_centrado").text(titulo[0].NOMBRE);
+            }
+            $("#menu_encabezado").html(getText('/login/permisos/menu/generar', {}));
+            $('[data-submenu]').submenupicker();
+        }
+    });
+
+</script>
